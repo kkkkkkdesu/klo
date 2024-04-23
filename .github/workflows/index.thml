@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>動く犬のサイト</title>
+<style>
+/* CSS スタイル */
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  height: 2000px; /* スクロールのために高さを設定 */
+}
+
+.dog {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: transform 0.3s ease;
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+  <img src="dog.png" alt="犬" class="dog" id="dog">
+</div>
+
+<script>
+// JavaScript
+const dog = document.getElementById('dog');
+
+// マウスが動くと犬も一緒に動く
+document.addEventListener('mousemove', (e) => {
+  const x = e.clientX / window.innerWidth - 0.5;
+  dog.style.transform = `translateX(-50%) translateX(${x * 100}px)`;
+});
+
+// スクロールすると犬がジャンプする
+window.addEventListener('scroll', () => {
+  const scrollHeight = window.scrollY;
+  if (scrollHeight > 200) { // 200px以上スクロールしたら
+    dog.style.transform = `translateX(-50%) translateY(-${scrollHeight / 10}px)`;
+  } else {
+    dog.style.transform = `translateX(-50%) translateY(0)`;
+  }
+});
+</script>
+
+</body>
+</html>
